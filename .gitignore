@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.pkl
+
+# Node
+node_modules/
+frontend/node_modules/
+
+# Temp files
+temp_uploads/
+organized/
+modul/organized/
+
+# Environment
+.env
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Tesseract binaries (too large for git)
+Tesseract/
+tessdata/
+New folder/
+
+# Binary files
+*.exe
+*.dll
+*.zip
+*.msi
+
+# Build output
+frontend/dist/
+
+# Trainable data / sample docs
+modul/trainable_data/

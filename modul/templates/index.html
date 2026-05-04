@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>OCR Text Extraction</title>
+
+<style>
+
+body{
+background:#1e1e1e;
+font-family:Arial;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.container{
+text-align:center;
+width:700px;
+}
+
+h1{
+font-size:42px;
+margin-bottom:30px;
+}
+
+button{
+padding:12px 30px;
+font-size:18px;
+margin-top:10px;
+cursor:pointer;
+background:#ddd;
+border:none;
+border-radius:5px;
+}
+
+button:hover{
+background:#bbb;
+}
+
+.result-box{
+margin-top:30px;
+background:black;
+color:#00ff00;
+padding:25px;
+height:350px;
+overflow:auto;
+font-family:monospace;
+font-size:14px;
+text-align:left;
+border-radius:6px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>OCR Text Extraction</h1>
+
+<input type="file" id="fileInput">
+
+<br><br>
+
+<button onclick="uploadFile()">Extract Text</button>
+
+<div class="result-box" id="result">
+Result will appear here...
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
