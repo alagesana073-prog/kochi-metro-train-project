@@ -17,6 +17,10 @@ modul/organized/
 
 # Environment
 .env
+.env.local
+.env.production
+frontend/.env
+modul/.env
 *.log
 
 # IDE

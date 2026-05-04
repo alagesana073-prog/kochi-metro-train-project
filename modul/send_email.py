@@ -4,9 +4,12 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 import os
+from dotenv import load_dotenv
 
-SENDER_EMAIL = "REDACTED"
-SENDER_PASSWORD = "REDACTED"  # 🔥 USE APP PASSWORD
+load_dotenv()
+
+SENDER_EMAIL = os.getenv("SENDER_EMAIL", "")
+SENDER_PASSWORD = os.getenv("SENDER_PASSWORD", "")
 
 # Default fallback mapping (used only when no custom recipients are provided)
 CATEGORY_EMAILS = {
