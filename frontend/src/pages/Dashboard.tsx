@@ -42,7 +42,8 @@ export const Dashboard: React.FC = () => {
   useEffect(() => {
     const checkHealth = async () => {
       try {
-        const res = await fetch('http://localhost:5000/health', { signal: AbortSignal.timeout(3000) });
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${apiUrl}/health`, { signal: AbortSignal.timeout(3000) });
         if (res.ok) {
           setBackendStatus('online');
         } else {
@@ -82,8 +83,9 @@ export const Dashboard: React.FC = () => {
     formData.append('mapping', JSON.stringify(deptMapping));
 
     try {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
       // 1. Send to Python Flask API
-      const response = await fetch('http://localhost:5000/upload', {
+      const response = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         body: formData,
       });

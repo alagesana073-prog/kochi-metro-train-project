@@ -95,6 +95,6 @@ def upload_files():
 
 
 if __name__ == '__main__':
-    print("[START] KMTP Backend API starting on http://localhost:5000")
-    print("   Health check: http://localhost:5000/health")
-    app.run(port=5000, debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    print(f"[START] KMTP Backend API starting on port {port}")
+    app.run(host='0.0.0.0', port=port)

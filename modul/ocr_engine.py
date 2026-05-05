@@ -8,9 +8,9 @@ import os
 # Auto-detect Tesseract path
 TESSERACT_PATHS = [
     r"D:\project\adl\Tesseract\tesseract.exe",
-    r"D:\adl\Tesseract\tesseract.exe",
     r"C:\Program Files\Tesseract-OCR\tesseract.exe",
-    r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe",
+    "/usr/bin/tesseract",
+    "/usr/local/bin/tesseract"
 ]
 
 tesseract_found = False
@@ -28,7 +28,8 @@ if not tesseract_found:
 # Poppler paths for PDF conversion
 POPPLER_PATHS = [
     r"C:\poppler\Library\bin",
-    r"C:\Program Files\poppler\bin",
+    "/usr/bin",
+    "/usr/local/bin"
 ]
 
 

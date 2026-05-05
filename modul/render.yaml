@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: kmtp-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn api:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.0
+    # Add Tesseract and Poppler dependencies
+    # Render supports these via apt-get in some environments, or we use a custom Dockerfile

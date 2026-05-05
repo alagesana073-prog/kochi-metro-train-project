@@ -1,0 +1,11 @@
+flask
+flask-cors
+pandas
+scikit-learn
+pytesseract
+opencv-python
+pdf2image
+numpy
+python-dotenv
+joblib
+gunicorn
