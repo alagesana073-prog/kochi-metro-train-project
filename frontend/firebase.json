@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "kochi-metro-train-projec-25477",
     "public": "dist",
     "ignore": [
       "firebase.json",
