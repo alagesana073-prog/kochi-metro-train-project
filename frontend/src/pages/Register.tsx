@@ -38,8 +38,8 @@ export const Register: React.FC = () => {
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-indigo-600 to-purple-600 mb-6 text-white shadow-2xl shadow-indigo-200">
             <Train size={40} />
           </div>
-          <h2 className="text-4xl font-black text-gray-900 tracking-tighter">KMTP</h2>
-          <p className="text-sm font-bold text-gray-400 mt-2 uppercase tracking-widest">Kochi Metro Train Project</p>
+          <h2 className="text-4xl font-black text-gray-900 tracking-tighter">KMRL</h2>
+          <p className="text-sm font-bold text-gray-400 mt-2 uppercase tracking-widest">Kochi Metro Rail Limited</p>
         </div>
 
         {error && (

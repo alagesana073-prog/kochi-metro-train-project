@@ -5,7 +5,13 @@ import json
 from organizer import organize_document
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for React frontend
+CORS(app, resources={r"/*": {
+    "origins": "*",
+    "methods": ["GET", "POST", "OPTIONS"],
+    "allow_headers": "*",
+    "expose_headers": "*",
+    "supports_credentials": False
+}})
 
 # Use absolute path for uploads relative to this script
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

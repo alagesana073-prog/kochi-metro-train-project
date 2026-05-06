@@ -127,7 +127,7 @@ export const Departments: React.FC = () => {
               </div>
               <div className="ml-4">
                 <h1 className="font-black text-2xl tracking-tighter text-gray-900 leading-none">DEPARTMENTS</h1>
-                <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest leading-none">Kochi Metro Train Project</span>
+                <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest leading-none">Kochi Metro Rail Limited</span>
               </div>
             </div>
             

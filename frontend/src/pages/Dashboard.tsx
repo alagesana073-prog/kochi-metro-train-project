@@ -43,7 +43,10 @@ export const Dashboard: React.FC = () => {
     const checkHealth = async () => {
       try {
         const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-        const res = await fetch(`${apiUrl}/health`, { signal: AbortSignal.timeout(3000) });
+        const res = await fetch(`${apiUrl}/health`, { 
+          signal: AbortSignal.timeout(10000),
+          headers: { 'bypass-tunnel-reminder': 'true' }
+        });
         if (res.ok) {
           setBackendStatus('online');
         } else {
@@ -88,6 +91,7 @@ export const Dashboard: React.FC = () => {
       const response = await fetch(`${apiUrl}/upload`, {
         method: 'POST',
         body: formData,
+        headers: { 'bypass-tunnel-reminder': 'true' }
       });
 
       if (!response.ok) throw new Error('Backend server error');
@@ -127,8 +131,8 @@ export const Dashboard: React.FC = () => {
                 <Train size={24} />
               </div>
               <div className="ml-4">
-                <h1 className="font-black text-2xl tracking-tighter text-gray-900 leading-none">KMTP</h1>
-                <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest leading-none">Kochi Metro Train Project</span>
+                <h1 className="font-black text-2xl tracking-tighter text-gray-900 leading-none">KMRL</h1>
+                <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest leading-none">Kochi Metro Rail Limited</span>
               </div>
             </div>
             
