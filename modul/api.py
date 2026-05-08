@@ -24,6 +24,11 @@ def health_check():
     """Health check endpoint for frontend to verify backend is running."""
     return jsonify({"status": "ok", "message": "KMTP Backend is running"})
 
+@app.route('/', methods=['GET'])
+def index():
+    """Root endpoint to show a friendly message instead of a 404."""
+    return "<h1>KMRL Backend API is running successfully!</h1><p>Please visit the main website to use the application.</p>"
+
 
 @app.route('/upload', methods=['POST'])
 def upload_files():
