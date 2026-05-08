@@ -75,45 +75,64 @@ export const Dashboard: React.FC = () => {
     if (!files || files.length === 0 || !currentUser) return;
 
     setLoading(true);
-    setStatusMsg(`Uploading ${files.length} documents...`);
     
-    const formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      formData.append('files', files[i]);
-    }
-    
-    // Add the dynamic department mapping
-    formData.append('mapping', JSON.stringify(deptMapping));
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    let successCount = 0;
+    let errorCount = 0;
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      // 1. Send to Python Flask API
-      const response = await fetch(`${apiUrl}/upload`, {
-        method: 'POST',
-        body: formData,
-        headers: { 'bypass-tunnel-reminder': 'true' }
-      });
-
-      if (!response.ok) throw new Error('Backend server error');
-      
-      const results = await response.json();
-      
-      // 2. Save results to Firebase Firestore
-      setStatusMsg('Saving results to database...');
-      for (const res of results) {
-        if (res.error) continue;
+      // Process files one by one to avoid backend timeouts/OOM on free tier
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        setStatusMsg(`Processing ${i + 1} of ${files.length}: ${file.name}...`);
         
-        await addDoc(collection(db, 'documents'), {
-          ...res,
-          date: serverTimestamp(),
-          userId: currentUser.uid
-        });
+        const formData = new FormData();
+        formData.append('files', file);
+        formData.append('mapping', JSON.stringify(deptMapping));
+
+        try {
+          const response = await fetch(`${apiUrl}/upload`, {
+            method: 'POST',
+            body: formData,
+            headers: { 'bypass-tunnel-reminder': 'true' }
+          });
+
+          if (!response.ok) throw new Error('Backend server error');
+          
+          const results = await response.json();
+          
+          // Save result to Firebase Firestore
+          for (const res of results) {
+            if (res.error) {
+              console.error("Error from backend:", res.error);
+              errorCount++;
+              continue;
+            }
+            
+            await addDoc(collection(db, 'documents'), {
+              ...res,
+              date: serverTimestamp(),
+              userId: currentUser.uid
+            });
+            successCount++;
+          }
+        } catch (err) {
+          console.error(`Error processing ${file.name}:`, err);
+          errorCount++;
+        }
       }
       
-      setStatusMsg('Successfully processed all documents!');
-      setTimeout(() => setStatusMsg(''), 3000);
+      if (errorCount > 0 && successCount === 0) {
+        setStatusMsg('Failed to connect to Python backend. Make sure it is running.');
+      } else if (errorCount > 0) {
+        setStatusMsg(`Processed ${successCount} files, but ${errorCount} failed.`);
+      } else {
+        setStatusMsg('Successfully processed all documents!');
+      }
+      setTimeout(() => setStatusMsg(''), 5000);
+      
     } catch (error) {
-      console.error("Error processing documents:", error);
+      console.error("Critical error:", error);
       setStatusMsg('Failed to connect to Python backend. Make sure it is running.');
     } finally {
       setLoading(false);
