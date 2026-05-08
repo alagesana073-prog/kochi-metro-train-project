@@ -74,6 +74,13 @@ def extract_text(file_path):
                 print(f"[WARNING] Cannot read image: {file_path}")
                 return ""
 
+            # Resize large images to prevent Out-Of-Memory (OOM) crashes on Render!
+            height, width = img.shape[:2]
+            max_dim = 1500
+            if max(height, width) > max_dim:
+                scale = max_dim / max(height, width)
+                img = cv2.resize(img, (int(width * scale), int(height * scale)), interpolation=cv2.INTER_AREA)
+
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             text = pytesseract.image_to_string(gray)
 
