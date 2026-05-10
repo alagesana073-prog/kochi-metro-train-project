@@ -21,8 +21,8 @@ RUN pip install --no-cache-dir gunicorn
 # Copy the rest of the application
 COPY . .
 
-# Expose the port the app runs on
-EXPOSE 5000
+# Let Railway automatically manage the port
+# Removed EXPOSE 5000 to prevent port routing conflicts on Railway
 
-# Start the application with Gunicorn
-CMD gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120 api:app
+# Start the application with Gunicorn using explicit shell expansion
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-5000} --workers 1 --threads 4 --timeout 120 api:app"]
